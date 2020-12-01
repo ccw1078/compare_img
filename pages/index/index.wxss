@@ -10,13 +10,11 @@
 
 .bottom_img {
   z-index: 10;
-  width: 100%;
 }
 
 .top_img {
   z-index: 20;
   overflow: hidden;
-  height: 100%;
   border-right: 1px dotted white;
 }
 
@@ -52,7 +50,7 @@
   height: 120rpx;
   margin-top: 20rpx;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
