@@ -1,0 +1,22 @@
+<!--pages/index.wxml-->
+<wxs module="setstyle" src="./setstyle.wxs"></wxs>
+<view wx:if="{{img_paths.length > 0}}" class="content" style="height:{{img_height}}rpx">
+  <view class="bottom_img img_box"  style="height:{{img_height}}rpx; width:{{img_width}}rpx; left:{{img_left}}rpx">
+    <image class="img" src="{{img_paths[0]}}" mode="scaleToFill"></image>
+  </view>
+  <view class="top_img img_box" style="height:{{img_height}}rpx; width:{{img_width * 0.5}}rpx; left:{{img_left}}rpx">
+    <image class="img" src="{{img_paths[1]}}" mode="heightFix"></image>
+  </view>
+</view>
+<movable-area class="cursor_area" style="height:{{cursor_height}}rpx" wx:if="{{img_paths.length > 0}}">
+  <movable-view class="cursor_box" x="{{cursor_x}}" direction="horizontal" style="width:{{cursor_width}}rpx" bindchange="{{setstyle.move_cursor}}">
+    <image src="../images/arrow_left.png" class="arrow" mode="aspectFit"></image>
+    <image src="../images/cursor.png" class="cursor" mode="aspectFit"></image>
+    <image src="../images/arrow_right.png" class="arrow" mode="aspectFit"></image>
+  </movable-view>
+</movable-area>
+
+<view class="bottom_tab">
+  <button type="default" size="default" bindtap="delete_img" disabled="{{!img_path}}">删除图片</button>
+  <button type="primary" size="default" bindtap="add_img">添加图片</button>
+</view>

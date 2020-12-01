@@ -1,0 +1,39 @@
+function move_cursor (event, instance) {
+  var top_img = instance.selectComponent('.top_img');
+  var top_img_style = get_current_style(top_img);
+  var cursor_box = instance.selectComponent('.cursor_box');
+  var cursor_box_style = get_current_style(cursor_box);
+  var x = event.detail.x;
+  top_img.setStyle({
+    width: int_to_px(cursor_box_style.width * 0.5 + x - top_img_style.left)
+  });
+}
+
+
+// 将数字格式的样式值转成字符串格式
+function int_to_px (size) {
+  return size.toString() + "px";
+}
+
+// 将字符串格式的样式值转成数字格式
+function px_to_int (px) {
+  if (!px) return 0;
+  var index = px.indexOf("px");
+  return parseInt(px.slice(0, index));
+}
+
+// 获取某个组件当前的尺寸信息
+function get_current_style (element) {
+  var sizes = ['width', 'left']; // 与样式相关的属性
+  var style = element.getComputedStyle(sizes);
+  var result = {};
+  sizes.forEach(function (prop) {
+    result[prop] = px_to_int(style[prop]);
+  });
+  return result;
+}
+
+
+module.exports = {
+  move_cursor: move_cursor
+}
