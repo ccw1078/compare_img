@@ -17,6 +17,5 @@
 </movable-area>
 
 <view class="bottom_tab">
-  <button type="default" size="default" bindtap="delete_img" disabled="{{!img_path}}">删除图片</button>
   <button type="primary" size="default" bindtap="add_img">添加图片</button>
 </view>

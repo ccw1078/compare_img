@@ -6,7 +6,6 @@
 .img_box {
   position: absolute;
   top: 0;
-  height: 100%;
 }
 
 .bottom_img {
