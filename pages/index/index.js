@@ -31,9 +31,9 @@ Page({
   },
   onLoad: function () {
     const that = this;
-    const img_margin = 40; // 图片上下边缘留空，单位rpx
+    const img_margin = 68; // 图片上下边缘留空，单位rpx
     const cursor_height = 80; // 游标高度，单位rpx
-    const cursor_width = 176; // 游标高度，单位rpx
+    const cursor_width = 136; // 游标高度，单位rpx
     const img_max_width = 750 - img_margin * 2; // 图片最大宽度，单位rpx
     const img_max_height = app.globalData.window_height - cursor_height - img_margin * 2; // 图片最大高度，单位rpx
     const img_box_ratio = img_max_width / img_max_height; // 图片最大宽度和最大高度的比例

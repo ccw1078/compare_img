@@ -4,8 +4,9 @@ function move_cursor (event, instance) {
   var cursor_box = instance.selectComponent('.cursor_box');
   var cursor_box_style = get_current_style(cursor_box);
   var x = event.detail.x;
+  var width = cursor_box_style.width * 0.5 + x - top_img_style.left;
   top_img.setStyle({
-    width: int_to_px(cursor_box_style.width * 0.5 + x - top_img_style.left)
+    width: width > 0 ? int_to_px(width) : '1px'
   });
 }
 
