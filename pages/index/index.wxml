@@ -15,7 +15,6 @@
     <image src="../images/arrow_right.png" class="arrow" mode="aspectFit"></image>
   </movable-view>
 </movable-area>
-
 <view class="bottom_tab">
   <button type="primary" size="default" bindtap="add_img">添加图片</button>
 </view>

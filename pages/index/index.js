@@ -31,7 +31,7 @@ Page({
   },
   onLoad: function () {
     const that = this;
-    const img_margin = 20; // 图片上下边缘留空，单位rpx
+    const img_margin = 40; // 图片上下边缘留空，单位rpx
     const cursor_height = 80; // 游标高度，单位rpx
     const cursor_width = 176; // 游标高度，单位rpx
     const img_max_width = 750 - img_margin * 2; // 图片最大宽度，单位rpx
