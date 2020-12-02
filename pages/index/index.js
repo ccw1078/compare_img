@@ -38,10 +38,6 @@ Page({
       clear_cursor: false
     });
   }, 
-  cancel_scale: function () {
-    const that = this;
-    that.quit_scale();
-  },
   init_img: function (data) {
     const that = this;
     wx.getImageInfo({

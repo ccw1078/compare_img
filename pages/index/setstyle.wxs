@@ -50,16 +50,14 @@ function touch_end (event, instance) {
   if (!is_scalable(bottom_img)) return;
   var bottom_img_box = instance.selectComponent('.bottom_img_box');
   img_box_style = get_current_style(bottom_img_box);
-  var top_img = instance.selectComponent('.top_img');
-  if (current_img_width < img_box_style.width || current_img_height < img_box_style.height) {
-    set_style(bottom_img, img_box_style.width, img_box_style.height);
-  }
+  check_img_min_size(instance, img_box_style);
 }
 
 // 确认缩放
 function confirm (event, instance) {
   var top_img = instance.selectComponent('.top_img');
   set_style(top_img, current_img_width, current_img_height);
+  check_img_min_size(instance, img_box_style);
   instance.callMethod('scroll_to');
 }
 
@@ -67,15 +65,26 @@ function confirm (event, instance) {
 // 取消缩放
 function cancel (event, instance) {
   if (bottom_img) {
-    set_style(bottom_img, origin_img_width, origin_img_height);
+    var top_img = instance.selectComponent('.top_img');
+    top_img_style = get_current_style(top_img);
+    set_style(bottom_img, top_img_style.width, top_img_style.height);
   }
-  instance.callMethod('cancel_scale');
+  instance.callMethod('scroll_to');
 }
 
 // 判断当前是否为可缩放的状态
 function is_scalable(element) {
   var dataset = element.getDataset();
   return dataset.scalable;
+}
+
+// 检查缩放后是否小于最小的初始值
+function check_img_min_size (instance, img_box_style) {
+  if (current_img_width < img_box_style.width || current_img_height < img_box_style.height) {
+    var top_img = instance.selectComponent('.top_img');
+    set_style(bottom_img, img_box_style.width, img_box_style.height);
+    set_style(top_img, img_box_style.width, img_box_style.height);
+  }
 }
 
 
