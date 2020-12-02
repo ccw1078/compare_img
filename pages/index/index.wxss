@@ -8,12 +8,12 @@
   top: 0;
 }
 
-.bottom_img {
-  z-index: 10;
+.bottom_img_box {
+  /* z-index: 10; */
 }
 
-.top_img {
-  z-index: 20;
+.top_img_box {
+  /* z-index: 20; */
   overflow: hidden;
   border-right: 1px dotted white;
 }
@@ -50,8 +50,12 @@
   height: 120rpx;
   margin-top: 20rpx;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+}
+
+.transparent {
+  opacity: 0;
 }
 
 

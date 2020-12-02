@@ -4,6 +4,44 @@ const app = getApp();
 Page({
   data: {
     img_paths: [],
+    scalable: false,
+    scroll_top: 0,
+    scroll_left: 0,
+    top_img_z_index: 20,
+    bottom_img_z_index: 10,
+    clear_cursor: false
+  },
+  scale_img: function () {
+    const that = this;
+    that.setData({
+      scalable: true,
+      top_img_z_index: 5,
+      clear_cursor: true
+    });
+  },
+  scroll_to: function () {
+    const that = this;
+    const query = wx.createSelectorQuery();
+    query.select(".bottom_img_box").scrollOffset(function(res){
+      console.log("scrollOffset", JSON.stringify(res));
+      that.setData({
+        scroll_left: res.scrollLeft,
+        scroll_top:  res.scrollTop
+      });
+      that.quit_scale();
+    }).exec();
+  },
+  quit_scale: function () {
+    const that = this;
+    that.setData({
+      scalable: false,
+      top_img_z_index: 20,
+      clear_cursor: false
+    });
+  }, 
+  cancel_scale: function () {
+    const that = this;
+    that.quit_scale();
   },
   add_img: function () {
     const that = this;
