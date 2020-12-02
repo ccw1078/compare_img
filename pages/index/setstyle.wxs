@@ -1,5 +1,12 @@
+var origin_distance, bottom_img, img_box_style;
+var new_scale;
+var origin_img_width, origin_img_height, current_img_width, current_img_height;
+var origin_scale = 1;
+
+
+// 左右移动滑标
 function move_cursor (event, instance) {
-  var top_img = instance.selectComponent('.top_img');
+  var top_img = instance.selectComponent('.top_img_box');
   var top_img_style = get_current_style(top_img);
   var cursor_box = instance.selectComponent('.cursor_box');
   var cursor_box_style = get_current_style(cursor_box);
@@ -8,6 +15,77 @@ function move_cursor (event, instance) {
   top_img.setStyle({
     width: width > 0 ? int_to_px(width) : '1px'
   });
+}
+
+// 双指触击屏幕
+function touch_start (event, instance) {
+  if (event.touches.length !== 2) return;
+  bottom_img = instance.selectComponent('.bottom_img');
+  if (!is_scalable(bottom_img)) return;
+  var x = event.touches[1].clientX - event.touches[0].clientX;
+  var y = event.touches[1].clientY - event.touches[0].clientY;
+  origin_distance = Math.sqrt(x * x + y * y);
+  var current_style = get_current_style(bottom_img);
+  origin_img_height = current_style.height;
+  origin_img_width = current_style.width;
+}
+
+
+// 双指缩放移动
+function touch_move (event, instance) {
+  if (event.touches.length !== 2) return;
+  if (!is_scalable(bottom_img)) return;
+  // console.log('event', JSON.stringify(event));
+  var x_move = event.touches[1].clientX - event.touches[0].clientX;
+  var y_move = event.touches[1].clientY - event.touches[0].clientY;
+  var current_distance = Math.sqrt(x_move * x_move + y_move * y_move);
+  var diff = current_distance - origin_distance;
+  new_scale = origin_scale + diff * 0.004;
+  current_img_height = origin_img_height * new_scale;
+  current_img_width = origin_img_width * new_scale;
+  set_style(bottom_img, current_img_width, current_img_height)
+}
+
+// 双指结束移动
+function touch_end (event, instance) {
+  if (!is_scalable(bottom_img)) return;
+  var bottom_img_box = instance.selectComponent('.bottom_img_box');
+  var img_box_style = get_current_style(bottom_img_box);
+  // console.log('img_box_style', JSON.stringify(img_box_style));
+  var top_img = instance.selectComponent('.top_img');
+  if (current_img_width < img_box_style.width || current_img_height < img_box_style.height) {
+    set_style(bottom_img, img_box_style.width, img_box_style.height);
+  }
+}
+
+// 设置元素样式
+function set_style(element, width, height) {
+  element.setStyle({
+    width: int_to_px(width),
+    height: int_to_px(height)
+  });
+}
+
+// 确认缩放
+function confirm (event, instance) {
+  var top_img = instance.selectComponent('.top_img');
+  set_style(top_img, current_img_width, current_img_height);
+  instance.callMethod('scroll_to');
+}
+
+
+// 取消缩放
+function cancel (event, instance) {
+  // top_img = instance.selectComponent('.top_img');
+  // set_style(top_img, img_box_style.width, img_box_style.height)
+  instance.callMethod('cancel_scale');
+}
+
+// 判断当前是否为可缩放的状态
+function is_scalable(element) {
+  var dataset = element.getDataset();
+  // console.log("dataset", JSON.stringify(dataset));
+  return dataset.scalable;
 }
 
 
@@ -25,7 +103,7 @@ function px_to_int (px) {
 
 // 获取某个组件当前的尺寸信息
 function get_current_style (element) {
-  var sizes = ['width', 'left']; // 与样式相关的属性
+  var sizes = ['width', 'height', 'left', 'top']; // 与样式相关的属性
   var style = element.getComputedStyle(sizes);
   var result = {};
   sizes.forEach(function (prop) {
@@ -36,5 +114,10 @@ function get_current_style (element) {
 
 
 module.exports = {
-  move_cursor: move_cursor
+  move_cursor: move_cursor,
+  touch_start: touch_start,
+  touch_move: touch_move,
+  touch_end: touch_end,
+  cancel: cancel,
+  confirm: confirm
 }
