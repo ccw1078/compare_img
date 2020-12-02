@@ -8,13 +8,15 @@ Page({
     scroll_top: 0,
     scroll_left: 0,
     top_img_z_index: 20,
-    bottom_img_z_index: 10
+    bottom_img_z_index: 10,
+    clear_cursor: false
   },
   scale_img: function () {
     const that = this;
     that.setData({
       scalable: true,
-      top_img_z_index: 5
+      top_img_z_index: 5,
+      clear_cursor: true
     });
   },
   scroll_to: function () {
@@ -26,22 +28,20 @@ Page({
         scroll_left: res.scrollLeft,
         scroll_top:  res.scrollTop
       });
-      that.confirm_scale();
+      that.quit_scale();
     }).exec();
   },
-  confirm_scale: function () {
+  quit_scale: function () {
     const that = this;
     that.setData({
       scalable: false,
-      top_img_z_index: 20
+      top_img_z_index: 20,
+      clear_cursor: false
     });
   }, 
   cancel_scale: function () {
     const that = this;
-    that.setData({
-      scalable: false,
-      top_img_z_index: 20
-    })
+    that.quit_scale();
   },
   add_img: function () {
     const that = this;

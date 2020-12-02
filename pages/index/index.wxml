@@ -15,8 +15,9 @@
     <image class="img top_img" src="{{img_paths[1]}}" mode="heightFix"></image>
   </scroll-view>
 </view>
-<movable-area class="cursor_area" style="height:{{cursor_height}}rpx" hidden="{{img_paths.length === 0 || scalable}}">
-  <movable-view class="cursor_box" x="{{cursor_x}}" direction="horizontal" style="width:{{cursor_width}}rpx" bindchange="{{setstyle.move_cursor}}">
+<movable-area class="cursor_area" style="height:{{cursor_height}}rpx" wx:if="{{img_paths.length > 0}}">
+  <movable-view class="cursor_box {{clear_cursor ? 'transparent' : ''}}" x="{{cursor_x}}" 
+    direction="horizontal" style="width:{{cursor_width}}rpx" bindchange="{{setstyle.move_cursor}}" disabled="{{clear_cursor}}">
     <image src="../images/arrow_left.png" class="arrow" mode="aspectFit"></image>
     <image src="../images/cursor.png" class="cursor" mode="aspectFit"></image>
     <image src="../images/arrow_right.png" class="arrow" mode="aspectFit"></image>
