@@ -22,6 +22,7 @@
     <image src="../images/cursor.png" class="cursor" mode="aspectFit"></image>
     <image src="../images/arrow_right.png" class="arrow" mode="aspectFit"></image>
   </movable-view>
+  <view class="cursor_box" hidden="{{!clear_cursor}}">双指夹捏放大</view>
 </movable-area>
 <view>
   <view wx:if="{{!scalable}}" class="bottom_tab">

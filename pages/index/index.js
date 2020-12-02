@@ -23,7 +23,6 @@ Page({
     const that = this;
     const query = wx.createSelectorQuery();
     query.select(".bottom_img_box").scrollOffset(function(res){
-      console.log("scrollOffset", JSON.stringify(res));
       that.setData({
         scroll_left: res.scrollLeft,
         scroll_top:  res.scrollTop
@@ -43,27 +42,38 @@ Page({
     const that = this;
     that.quit_scale();
   },
+  init_img: function (data) {
+    const that = this;
+    wx.getImageInfo({
+      src: data.tempFilePaths[0],
+      success: function (info) {
+        const img_ratio = info.width / info.height; // 图片的宽高比
+        const img_width = img_ratio > that.data.img_box_ratio ? 
+          that.data.img_max_width : Math.round(that.data.img_max_height * img_ratio);
+        const img_left = (app.globalData.window_width - img_width) * 0.5; // 图片离屏幕的左边距
+        that.setData({
+          img_paths: data.tempFilePaths,
+          img_width: img_width,
+          img_height: Math.round(img_width / img_ratio),
+          img_left: img_left,
+          cursor_x: Math.round(((img_width - that.data.cursor_width) * 0.5 + img_left) / app.globalData.px_ratio)
+        });
+      }
+    });
+  },
   add_img: function () {
     const that = this;
     wx.chooseImage({
       count: 2,
       success: function (res) {
-        wx.getImageInfo({
-          src: res.tempFilePaths[0],
-          success: function (info) {
-            const img_ratio = info.width / info.height; // 图片的宽高比
-            const img_width = img_ratio > that.data.img_box_ratio ? 
-              that.data.img_max_width : Math.round(that.data.img_max_height * img_ratio);
-            const img_left = (app.globalData.window_width - img_width) * 0.5; // 图片离屏幕的左边距
-            that.setData({
-              img_paths: res.tempFilePaths,
-              img_width: img_width,
-              img_height: Math.round(img_width / img_ratio),
-              img_left: img_left,
-              cursor_x: Math.round(((img_width - that.data.cursor_width) * 0.5 + img_left) / app.globalData.px_ratio)
-            });
-          }
-        });
+        if (res.tempFilePaths.length < 2) {
+          wx.showToast({
+            title: '需两张图片',
+            icon: 'none'
+          });
+        } else {
+          that.init_img(res);
+        }
       }
     });
   },
