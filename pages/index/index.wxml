@@ -16,20 +16,20 @@
   </scroll-view>
 </view>
 <movable-area class="cursor_area" style="height:{{cursor_height}}rpx" wx:if="{{img_paths.length > 0}}">
-  <movable-view class="cursor_box {{clear_cursor ? 'transparent' : ''}}" x="{{cursor_x}}" 
-    direction="horizontal" style="width:{{cursor_width}}rpx" bindchange="{{setstyle.move_cursor}}" disabled="{{clear_cursor}}">
+  <movable-view class="cursor_box {{hide_cursor ? 'transparent' : ''}}" x="{{cursor_x}}" 
+    direction="horizontal" style="width:{{cursor_width}}rpx" bindchange="{{setstyle.move_cursor}}" disabled="{{hide_cursor}}">
     <image src="../images/arrow_left.png" class="arrow" mode="aspectFit"></image>
     <image src="../images/cursor.png" class="cursor" mode="aspectFit"></image>
     <image src="../images/arrow_right.png" class="arrow" mode="aspectFit"></image>
   </movable-view>
-  <movable-view class="cursor_box" style="width:{{cursor_width * 2}}rpx" hidden="{{!clear_cursor}}" disabled="true" x="{{zoom_x}}">
+  <movable-view class="cursor_box" style="width:{{cursor_width * 2}}rpx" hidden="{{!hide_cursor}}" disabled="true" x="{{zoom_x}}">
     <image src="../images/zoom.png" class='zoom' mode="aspectFit"></image>双指夹捏放大
     <!-- <view>双指夹捏放大</view> -->
   </movable-view>
 </movable-area>
 <view>
   <view wx:if="{{!scalable}}" class="bottom_tab">
-    <button type="default" size="default" bindtap="scale_img" disabled="{{img_paths.length === 0}}">缩放</button>
+    <button type="default" size="default" bindtap="zoom_img" disabled="{{img_paths.length === 0}}">缩放</button>
     <button type="primary" size="default" bindtap="add_img">添加图片</button>
   </view>
   <view wx:else class="bottom_tab">

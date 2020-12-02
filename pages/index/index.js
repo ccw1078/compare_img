@@ -9,14 +9,14 @@ Page({
     scroll_left: 0,
     top_img_z_index: 20,
     bottom_img_z_index: 10,
-    clear_cursor: false
+    hide_cursor: false
   },
-  scale_img: function () {
+  zoom_img: function () {
     const that = this;
     that.setData({
       scalable: true,
       top_img_z_index: 5,
-      clear_cursor: true
+      hide_cursor: true
     });
   },
   scroll_to: function () {
@@ -27,19 +27,20 @@ Page({
         scroll_left: res.scrollLeft,
         scroll_top:  res.scrollTop
       });
-      that.quit_scale();
+      that.quit_zoom();
     }).exec();
   },
-  quit_scale: function () {
+  quit_zoom: function () {
     const that = this;
     that.setData({
       scalable: false,
       top_img_z_index: 20,
-      clear_cursor: false
+      hide_cursor: false
     });
   }, 
   init_img: function (data) {
     const that = this;
+    if (data.tempFilePaths.length < 2) return;
     wx.getImageInfo({
       src: data.tempFilePaths[0],
       success: function (info) {
