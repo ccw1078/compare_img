@@ -8,12 +8,7 @@
   top: 0;
 }
 
-.bottom_img_box {
-  /* z-index: 10; */
-}
-
 .top_img_box {
-  /* z-index: 20; */
   overflow: hidden;
   border-right: 1px dotted white;
 }
@@ -25,6 +20,8 @@
 
 .cursor_area {
   width: 100vw;
+  justify-content: center;
+  align-items: center;
 }
 
 .cursor_box {
@@ -42,6 +39,12 @@
 .arrow {
   width: 32rpx;
   height: 32rpx;
+}
+
+.zoom {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 16rpx;
 }
 
 

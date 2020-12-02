@@ -56,7 +56,8 @@ Page({
           img_width: img_width,
           img_height: Math.round(img_width / img_ratio),
           img_left: img_left,
-          cursor_x: Math.round(((img_width - that.data.cursor_width) * 0.5 + img_left) / app.globalData.px_ratio)
+          cursor_x: Math.round(((img_width - that.data.cursor_width) * 0.5 + img_left) / app.globalData.px_ratio),
+          zoom_x: Math.round(((img_width - that.data.cursor_width * 2) * 0.5 + img_left) / app.globalData.px_ratio),
         });
       }
     });

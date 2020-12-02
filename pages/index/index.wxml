@@ -22,11 +22,14 @@
     <image src="../images/cursor.png" class="cursor" mode="aspectFit"></image>
     <image src="../images/arrow_right.png" class="arrow" mode="aspectFit"></image>
   </movable-view>
-  <view class="cursor_box" hidden="{{!clear_cursor}}">双指夹捏放大</view>
+  <movable-view class="cursor_box" style="width:{{cursor_width * 2}}rpx" hidden="{{!clear_cursor}}" disabled="true" x="{{zoom_x}}">
+    <image src="../images/zoom.png" class='zoom' mode="aspectFit"></image>双指夹捏放大
+    <!-- <view>双指夹捏放大</view> -->
+  </movable-view>
 </movable-area>
 <view>
   <view wx:if="{{!scalable}}" class="bottom_tab">
-    <button type="default" size="default" bindtap="scale_img">缩放</button>
+    <button type="default" size="default" bindtap="scale_img" disabled="{{img_paths.length === 0}}">缩放</button>
     <button type="primary" size="default" bindtap="add_img">添加图片</button>
   </view>
   <view wx:else class="bottom_tab">
